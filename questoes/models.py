@@ -27,6 +27,7 @@ class Pergunta(models.Model):
     banca = models.ForeignKey('Banca', on_delete = models.CASCADE, related_name = 'pergunta')
 
 class Alternativa(models.Model):
+    texto = models.TextField()
     correta = models.BooleanField(default = False)
     selecionada = models.BooleanField(default = False)
     pergunta = models.ForeignKey('Pergunta', on_delete = models.CASCADE, related_name = 'alternativa')
