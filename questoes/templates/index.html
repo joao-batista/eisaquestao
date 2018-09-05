@@ -4,6 +4,28 @@
 
 {% load filtros %}
 
+<form action="{% url 'filtrar' %}" method="post">{% csrf_token %}
+    <div class="card">
+        <div class="card-header">Questões de Concurso</div>
+        <div class="card-body">
+            <div class="form-row align-items-center">
+
+                {% for field in filtro_form %}
+                <div class="col-sm-3 my-1">
+                    {{ field }}
+                </div>
+                {% endfor %}
+
+                <div class="col-auto my-1">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+<br>
+
 {% for pergunta in perguntas %}
 <div class="card">
     <div class="card-header text-muted">

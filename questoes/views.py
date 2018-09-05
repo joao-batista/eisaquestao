@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from .forms import PerguntaForm, AlternativaForm
+from .forms import PerguntaForm, AlternativaForm, FiltroForm
 from .models import Pergunta, Alternativa
+from django.db.models import Q
 
 def index(request):
     perguntas = Pergunta.objects.all()
-    return render(request, 'index.html', { 'perguntas' : perguntas })
+    return render_index(request, perguntas)
 
 def pergunta_inserir(request):
     form_pergunta = PerguntaForm(request.POST)
@@ -31,3 +32,26 @@ def pergunta_atualizar(request, id):
             form_alternativa.save()
         redirect('index')
     return render(request, 'pergunta_form.html', { 'form_pergunta' : form_pergunta,  'form_alternativas': form_alternativas })
+
+
+def filtrar(request):
+    form = FiltroForm(request.POST)
+
+    if form.is_valid():
+        data = form.cleaned_data
+        query = Q()
+        if data.get('disciplina'):
+            query.add(Q(disciplina = data.get('disciplina')), Q.AND)
+        if data.get('banca'):
+            query.add(Q(banca = data.get('banca')), Q.AND)
+        if data.get('ano'):
+            query.add(Q(ano = data.get('ano')), Q.AND)
+        if data.get('nivel'):
+            query.add(Q(nivel = data.get('nivel')), Q.AND)
+        if data.get('orgao'):
+            query.add(Q(orgao = data.get('orgao')), Q.AND)
+        perguntas = Pergunta.objects.filter(query).all()
+    return render_index(request, perguntas)
+
+def render_index(request, perguntas):
+    return render(request, 'index.html', { 'perguntas' : perguntas, 'filtro_form' : FiltroForm() })

@@ -1,5 +1,12 @@
-from django.forms import ModelForm, ModelChoiceField, TextInput, Select, Textarea
+from django.forms import ModelForm, Form, ModelChoiceField, TextInput, Select, Textarea
 from questoes.models import Pergunta, Disciplina, Ano, Banca, Nivel, Orgao, Alternativa
+
+class FiltroForm(Form):
+    disciplina = ModelChoiceField(queryset = Disciplina.objects.all(), empty_label="Disciplina...", required=False, widget=Select(attrs={'class':'custom-select'}))
+    ano = ModelChoiceField(queryset = Ano.objects.all(), empty_label="Ano...", required=False, widget=Select(attrs={'class':'custom-select'}))
+    banca = ModelChoiceField(queryset = Banca.objects.all(), empty_label="Banca...", required=False, widget=Select(attrs={'class':'custom-select'}))
+    nivel = ModelChoiceField(queryset = Nivel.objects.all(), empty_label="Nível...", required=False, widget=Select(attrs={'class':'custom-select'}))
+    orgao = ModelChoiceField(queryset = Orgao.objects.all(), empty_label="Orgão...", required=False, widget=Select(attrs={'class':'custom-select'}))
 
 class PerguntaForm(ModelForm):
     disciplina = ModelChoiceField(queryset = Disciplina.objects.all(), empty_label="Disciplina...", required=True, widget=Select(attrs={'class':'custom-select'}))
