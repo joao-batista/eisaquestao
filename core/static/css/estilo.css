@@ -1,3 +1,7 @@
 .label-form {
     min-width: 100px;
 }
+
+.sem_borda td, .sem_borda th {
+    border: none
+}

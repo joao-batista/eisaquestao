@@ -3,7 +3,8 @@ from .forms import PerguntaForm, AlternativaForm
 from .models import Pergunta, Alternativa
 
 def index(request):
-    return render(request, 'index.html')
+    perguntas = Pergunta.objects.all()
+    return render(request, 'index.html', { 'perguntas' : perguntas })
 
 def pergunta_inserir(request):
     form_pergunta = PerguntaForm(request.POST)

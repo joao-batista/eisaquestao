@@ -2,6 +2,43 @@
 
 {% block content %}
 
-<h1>Index</h1>
+{% for pergunta in perguntas %}
+<div class="card">
+    <div class="card-header text-muted">
+        <b>Disciplina:</b> {{ pergunta.disciplina }}&nbsp;&nbsp;&nbsp;
+        <b>Banca:</b> {{ pergunta.banca }}&nbsp;&nbsp;&nbsp;
+        <b>Orgão:</b> {{ pergunta.orgao }}&nbsp;&nbsp;&nbsp;
+        <b>Nível:</b> {{ pergunta.nivel }}&nbsp;&nbsp;&nbsp;
+        <b>Ano:</b> {{ pergunta.ano }}&nbsp;&nbsp;&nbsp; 
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            <textarea class="form-control textarea-customizado" readonly>{{ pergunta.texto }}</textarea>
+        </p>
+
+        <table class="table sem_borda">
+            {% for alternativa in pergunta.alternativa.all %}
+            <tr>
+                <td width="7%" height="50">
+                    <input type="radio" name="{{ pergunta.id }}" id="{{ alternativa.id }}" value="{{ alternativa.id }}"> {{ forloop.counter }} )
+                </td>
+                <td>
+                    <label for="{{ alternativa.id }}" class="label-alternativa">
+                        {{ alternativa.texto }}
+                    </label>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <button type="button" class="btn btn-warning text-white" onclick="">Responder</button>
+
+
+    </div>
+    <div class="card-footer text-muted">
+        
+    </div>
+</div>
+<br> {% endfor %}
 
 {% endblock %}
