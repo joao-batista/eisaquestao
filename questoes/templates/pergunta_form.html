@@ -2,6 +2,58 @@
 
 {% block content %}
 
-<h1>Form</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {% for field in form_pergunta %}
+
+    {% if field.field.widget.input_type == 'select' %}
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text label-form">{{ field.label }}</label>
+        </div>
+        {{ field }}
+    </div>
+
+    {% else %}
+
+    <div class="form-group">
+        <label>{{ field.label }}</label>
+        {{ field }}
+    </div>
+
+    {% endif %}
+    
+    {% endfor %}
+
+
+    {% for form in form_alternativas %}
+
+    <div class="input-group mb-3">
+    {% for field in form %}
+
+    {% if field.field.widget.input_type == 'text' %}
+
+        {{ field }}
+    
+        {% else %}
+    
+        <div class="input-group-append">
+        <div class="input-group-text">
+            {{ field }}
+        </div>
+        </div>
+        
+        
+        {% endif %}
+    
+    {% endfor %}
+    </div>
+
+    {% endfor %}
+
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
 
 {% endblock %}

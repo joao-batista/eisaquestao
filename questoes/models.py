@@ -3,17 +3,32 @@ from django.db import models
 class Disciplina(models.Model):
     descricao = models.CharField(max_length = 50, unique = True)
 
+    def __str__(self):
+        return self.descricao
+
 class Ano(models.Model):
     descricao = models.CharField(max_length = 4, unique = True)
+
+    def __str__(self):
+        return self.descricao
 
 class Banca(models.Model):
     descricao = models.CharField(max_length = 50, unique = True)
 
+    def __str__(self):
+        return self.descricao
+
 class Nivel(models.Model):
     descricao = models.CharField(max_length = 50, unique = True)
 
+    def __str__(self):
+        return self.descricao
+
 class Orgao(models.Model):
     descricao = models.CharField(max_length = 50, unique = True)
+
+    def __str__(self):
+        return self.descricao
 
 
 class Pergunta(models.Model):
