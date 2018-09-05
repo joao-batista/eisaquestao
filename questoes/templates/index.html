@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load filtros %}
+
 {% for pergunta in perguntas %}
 <div class="card">
     <div class="card-header text-muted">
@@ -20,7 +22,7 @@
             {% for alternativa in pergunta.alternativa.all %}
             <tr>
                 <td width="7%" height="50">
-                    <input type="radio" name="{{ pergunta.id }}" id="{{ alternativa.id }}" value="{{ alternativa.id }}"> {{ forloop.counter }} )
+                    <input type="radio" name="{{ pergunta.id }}" id="{{ alternativa.id }}" value="{{ alternativa.id }}"> {{ forloop.counter|number_to_char }} )
                 </td>
                 <td>
                     <label for="{{ alternativa.id }}" class="label-alternativa">
