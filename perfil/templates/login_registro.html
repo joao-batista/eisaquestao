@@ -1,0 +1,100 @@
+{% extends "base.html" %} {% block content %}
+
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+    <div class="col-sm">
+        <div class="card">
+            <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="card-header">
+                <h5>Cadastre-se Grátis:</h5>
+            </div>
+            <div class="card-body">
+                Preencha os campos para realizar o cadastro.
+                <br>
+                <br>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class='fa fa-user label-form-login'></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" name="nome">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class='fa fa-envelope label-form-login'></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Email" name="email">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class='fa fa-unlock-alt label-form-login'></i>
+                        </span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" name="password">
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="foto" name="imagem" >
+                    <label class="custom-file-label" for="foto">Selecione a Foto...</label>
+                </div>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">Criar Conta</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card">
+            <form action="" method="post" >{% csrf_token %}
+            <div class="card-header">
+                <h5>Login de Usuário:</h5>
+            </div>
+            <div class="card-body">
+                Se já é cadastrado entre com seu login e senha.
+                <br>
+                <br>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class='fa fa-user label-form-login'></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" name="username">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class='fa fa-unlock-alt label-form-login'></i>
+                        </span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" name="password">
+                </div>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
