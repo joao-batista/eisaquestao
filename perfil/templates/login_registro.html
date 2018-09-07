@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-sm">
         <div class="card">
-            <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form action="{% url 'registrar' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
             <div class="card-header">
                 <h5>Cadastre-se Grátis:</h5>
             </div>
@@ -32,7 +32,7 @@
                             <i class='fa fa-user label-form-login'></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" name="nome">
+                    <input type="text" class="form-control" placeholder="Username" name="login">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -63,7 +63,7 @@
     </div>
     <div class="col-sm">
         <div class="card">
-            <form action="" method="post" >{% csrf_token %}
+            <form action="{% url 'login' %}" method="post" >{% csrf_token %}
             <div class="card-header">
                 <h5>Login de Usuário:</h5>
             </div>
