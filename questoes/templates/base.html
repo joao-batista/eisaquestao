@@ -17,11 +17,24 @@
             <i class="fa fa-check"></i> Eis a Questão
         </a>
 
-        <ul class="navbar-nav navbar-right">
-            <li class="nav-item">
-                <a class="nav-link" href="">Login</a>
-            </li>
-        </ul>
+        {% if not request.user.is_authenticated %}
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right ml-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src="{{ request.user.perfil.imagem.url }}" class="avatar" alt="Avatar"> {{request.user.perfil.login}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
+                        <li class="divider dropdown-divider"></li>
+                        <li><a href="{% url 'logout' %}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {% endif %}
     </nav>
 
 
