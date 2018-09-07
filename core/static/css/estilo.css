@@ -21,3 +21,11 @@
     border-color: #e5e5e5;
     box-shadow: 0 2px 8px rgba(0,0,0,.05);
 }
+
+.show {
+    display: unset;
+}
+
+.hide {
+    display: none;
+}

@@ -55,12 +55,22 @@
             {% endfor %}
         </table>
 
-        <button type="button" class="btn btn-warning text-white" onclick="">Responder</button>
+        <button type="button" class="btn btn-warning text-white" onclick="responder('{{ pergunta.id }}')">Responder</button>
 
 
     </div>
     <div class="card-footer text-muted">
-        
+        <span id="resposta_{{pergunta.id}}">
+            <span class="float-right text-success {% feedback perfil=request.user.perfil.id pergunta=pergunta.id div='is_correta' %}"
+                id="is_correta_{{pergunta.id}}">
+                <i class='fa fa-check'></i> Parabéns, Você Acertou!
+            </span>
+            <span class="float-right text-danger {% feedback perfil=request.user.perfil.id pergunta=pergunta.id div='is_incorreta' %}"
+                id="is_incorreta_{{pergunta.id}}">
+                <i class='fa fa-close'></i> Você Errou!
+                <span class="text-muted">alternativa correta: {{ pergunta.alternativa_certa|number_to_char }}</span>
+            </span>
+        </span>
     </div>
 </div>
 <br> {% endfor %}

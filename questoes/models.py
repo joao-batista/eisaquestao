@@ -43,6 +43,13 @@ class Pergunta(models.Model):
     banca = models.ForeignKey('Banca', on_delete = models.CASCADE, related_name = 'pergunta')
     respondida = models.ManyToManyField(Perfil, through='Respondida', related_name='pergunta')
 
+    @property
+    def alternativa_certa(self):
+        for indice, alternativa in enumerate(self.alternativa.all()):
+            if alternativa.correta:
+                return indice + 1
+
+
 class Alternativa(models.Model):
     texto = models.TextField()
     correta = models.BooleanField(default = False)

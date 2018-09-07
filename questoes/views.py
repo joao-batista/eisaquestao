@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import PerguntaForm, AlternativaForm, FiltroForm
-from .models import Pergunta, Alternativa
+from .models import Pergunta, Alternativa, Respondida
 from django.db.models import Q
+from django.http import JsonResponse
 
 def index(request):
     perguntas = Pergunta.objects.all()
@@ -52,6 +53,20 @@ def filtrar(request):
             query.add(Q(orgao = data.get('orgao')), Q.AND)
         perguntas = Pergunta.objects.filter(query).all()
     return render_index(request, perguntas)
+
+def responder_ajax(request):
+    id = request.POST.get('id')
+    alternativa = Alternativa.objects.get(pk = id)
+    pergunta = alternativa.pergunta
+    perfil = request.user.perfil
+
+    try:
+        respondida = Respondida.objects.get(pergunta = pergunta, perfil = perfil)
+        respondida.alternativa = alternativa
+        respondida.save()
+    except Respondida.DoesNotExist:
+        Respondida.objects.create(pergunta = pergunta, perfil = perfil, alternativa = alternativa)
+    return JsonResponse({'resposta' : alternativa.correta})
 
 def render_index(request, perguntas):
     return render(request, 'index.html', { 'perguntas' : perguntas, 'filtro_form' : FiltroForm() })
