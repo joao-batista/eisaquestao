@@ -2,10 +2,14 @@ function responder(id_pergunta) {
     var id = $("input[name=" + id_pergunta + "]:checked").val()
     var url = formatar_url('responder_ajax/')
 
-    var retorno = post(url, id)
-    retorno.done(function(data) {
-        feedback(id_pergunta, data);
-    })
+    if(id){
+        var retorno = post(url, id)
+        retorno.done(function(data) {
+            feedback(id_pergunta, data);
+        })
+    } else {
+        $('#modal_selecionar').modal('show')
+    }
 
 }
 
