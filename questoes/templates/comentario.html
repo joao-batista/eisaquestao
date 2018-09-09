@@ -1,0 +1,39 @@
+<div class="{{ editar }}" id="comentario_editar_{{ id_pergunta }}">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav navbar-nav navbar-right ml-auto">
+                <li class="nav-item dropdown">
+                    <span data-toggle="dropdown" class="nav-link user-action">
+                        <img src="{{ perfil.imagem.url }}" class="avatar" alt="Avatar"> {{perfil.login}}
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div id="texto_comentario_{{ id_pergunta }}">{{ texto }}</div>
+            
+            <br>
+            <br>
+            <button type="button" class="btn btn-warning text-white show" onclick="editar('{{ id_pergunta }}')" id="publicar_comentario_{{ id_pergunta }}">Editar</button>
+        </div>
+    </div>
+</div>
+
+<div class="{{ publicar }}" id="comentario_publicar_{{ id_pergunta }}">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav navbar-nav navbar-right ml-auto">
+                <li class="nav-item dropdown">
+                    <span data-toggle="dropdown" class="nav-link user-action">
+                        <img src="{{ perfil.imagem.url }}" class="avatar" alt="Avatar"> {{perfil.login}}
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <textarea class="form-control" rows="5" id="textarea_comentario_{{ id_pergunta }}"></textarea>
+            <br>
+            <button type="button" class="btn btn-warning text-white show" onclick="publicar('{{ id_pergunta }}')" id="publicar_comentario_{{ id_pergunta }}">Publicar</button>
+        </div>
+    </div>
+</div>

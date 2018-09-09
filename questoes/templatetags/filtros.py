@@ -1,5 +1,5 @@
 from django import template
-from questoes.models import Respondida, Perfil, Pergunta
+from questoes.models import Respondida, Perfil, Pergunta, Comentario
 
 register = template.Library()
 
@@ -28,3 +28,16 @@ def feedback(*args, **kwargs):
             return 'show'
     except Exception:
         return 'hide'
+
+@register.inclusion_tag('comentario.html')
+def get_comentario(*args, **kwargs):
+    id_perfil = kwargs['perfil']
+    id_pergunta = kwargs['pergunta']
+    perfil = Perfil.objects.get(pk = id_perfil)
+
+    try:
+        comentario = Comentario.objects.get(perfil=id_perfil, pergunta=id_pergunta)
+        texto = comentario.texto
+        return {'perfil' : perfil, 'texto' : texto, 'id_pergunta' : id_pergunta, 'editar' : 'show', 'publicar' : 'hide'}
+    except Exception:
+        return {'perfil' : perfil, 'texto' : '', 'id_pergunta' : id_pergunta, 'editar' : 'hide', 'publicar' : 'show'}

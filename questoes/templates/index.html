@@ -69,6 +69,39 @@
 
     </div>
     <div class="card-footer text-muted">
+        <a class="texto_associado" data-toggle="collapse" href="#comentario_{{ pergunta.id }}">
+            <i class='fa fa-comment'></i>
+            Comentário
+        </a>
+        <div class="collapse" id="comentario_{{ pergunta.id }}">
+            {% if request.user.is_authenticated %}
+                {% get_comentario perfil=request.user.perfil.id pergunta=pergunta.id %}
+            {% endif %}
+
+            <br>
+
+            {% for comentario in pergunta.comentario.all %}
+            {% if not request.user.perfil.id == comentario.perfil.id %}
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav navbar-nav navbar-right ml-auto">
+                        <li class="nav-item dropdown">
+                            <span data-toggle="dropdown" class="nav-link user-action">
+                                <img src="{{ comentario.perfil.imagem.url }}" class="avatar" alt="Avatar"> {{comentario.perfil.login}}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    {{ comentario.texto }}
+                </div>
+            </div>
+            
+            <br>
+            {% endif %}
+            {% endfor %}
+        </div>
+
         <span id="resposta_{{pergunta.id}}">
             <span class="float-right text-success {% feedback perfil=request.user.perfil.id pergunta=pergunta.id div='is_correta' %}"
                 id="is_correta_{{pergunta.id}}">
