@@ -34,6 +34,11 @@
         <b>Orgão:</b> {{ pergunta.orgao }}&nbsp;&nbsp;&nbsp;
         <b>Nível:</b> {{ pergunta.nivel }}&nbsp;&nbsp;&nbsp;
         <b>Ano:</b> {{ pergunta.ano }}&nbsp;&nbsp;&nbsp; 
+        {% if perms.questoes.change_pergunta %}
+            <a class="float-right" href="{% url 'pergunta_atualizar' pergunta.id %}">
+                <i class='fa fa-edit'></i> Editar
+            </a>
+        {% endif %}
     </div>
     <div class="card-body">
         <p class="card-text">

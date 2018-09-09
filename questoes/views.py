@@ -3,11 +3,13 @@ from .forms import PerguntaForm, AlternativaForm, FiltroForm
 from .models import Pergunta, Alternativa, Respondida
 from django.db.models import Q
 from django.http import JsonResponse
+from django.contrib.auth.decorators import permission_required
 
 def index(request):
     perguntas = Pergunta.objects.all()
     return render_index(request, perguntas)
 
+@permission_required('questoes.add_pergunta', raise_exception=True)
 def pergunta_inserir(request):
     form_pergunta = PerguntaForm(request.POST)
     form_alternativas = [AlternativaForm(request.POST, prefix = str(i)) for i in range(1, 6)]
@@ -21,7 +23,7 @@ def pergunta_inserir(request):
         redirect('index')
     return render(request, 'pergunta_form.html', { 'form_pergunta' : form_pergunta,  'form_alternativas': form_alternativas })
 
-
+@permission_required('questoes.change_pergunta', raise_exception=True)
 def pergunta_atualizar(request, id):
     pergunta = Pergunta.objects.get(pk = id)
     form_pergunta = PerguntaForm(request.POST or None, instance = pergunta)

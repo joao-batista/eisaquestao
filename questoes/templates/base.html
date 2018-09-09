@@ -16,6 +16,11 @@
         <a class="navbar-brand" href="">
             <i class="fa fa-check"></i> Eis a Questão
         </a>
+        {% if perms.questoes.add_pergunta %}
+            <a class="nav-link" href="{% url 'pergunta_inserir' %}">Inserir Pergunta
+                <span class="sr-only">(current)</span>
+            </a>
+        {% endif %}
 
         {% if not request.user.is_authenticated %}
             <ul class="navbar-nav navbar-right">
