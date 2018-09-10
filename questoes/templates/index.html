@@ -117,6 +117,48 @@
 </div>
 <br> {% endfor %}
 
+{% if perguntas.has_other_pages %}
+  <ul class="pagination">
+    {% if perguntas.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1">Primeiro</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ perguntas.previous_page_number }}">&laquo;</a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">&laquo;</span>
+        </li>
+    {% endif %}
+
+    {% for i in perguntas.paginator.page_range %}
+      {% if perguntas.number == i %}
+        <li class="page-item active">
+            <span class="page-link">{{ i }}</span>
+        </li>
+      {% elif i > perguntas.number|add:'-5' and i < perguntas.number|add:'5'  %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if perguntas.has_next %}
+        <li>
+            <a class="page-link" href="?page={{ perguntas.next_page_number }}">&raquo;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ perguntas.paginator.num_pages }}">Último</a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">&raquo;</span>
+        </li>
+    {% endif %}
+  </ul>
+{% endif %}
+
 <!-- Modal -->
 <div class="modal fade" id="modal_login" tabindex="-1">
     <div class="modal-dialog" role="document">

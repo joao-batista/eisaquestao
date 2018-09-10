@@ -4,6 +4,7 @@ from .models import Pergunta, Alternativa, Respondida, Comentario
 from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib.auth.decorators import permission_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 def index(request):
     perguntas = Pergunta.objects.all()
@@ -85,4 +86,9 @@ def publicar_ajax(request):
     return JsonResponse({'resposta' : texto})
 
 def render_index(request, perguntas):
+    paginator = Paginator(perguntas, 5)
+
+    page = request.GET.get('page')
+    perguntas = paginator.get_page(page)
+
     return render(request, 'index.html', { 'perguntas' : perguntas, 'filtro_form' : FiltroForm() })
