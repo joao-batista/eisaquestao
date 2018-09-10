@@ -3,7 +3,7 @@ function responder(id_pergunta) {
     var url = formatar_url('responder_ajax/')
 
     if(id){
-        var retorno = post(url, id)
+        var retorno = post(url, id, '')
         retorno.done(function(data) {
             feedback(id_pergunta, data);
         })
@@ -13,18 +13,29 @@ function responder(id_pergunta) {
 
 }
 
+function publicar(id) {
+    var url = formatar_url('publicar_ajax/')
+	var texto = $('#textarea_comentario_' + id).val()
+
+    var retorno = post(url, id, texto)
+    retorno.done(function(data) {
+        $('#texto_comentario_' + id).html(data.resposta)
+        editar(id);
+    })
+}
+
 function formatar_url(url) {
     if (window.location.href.includes("filtrar")) 
         return '../' + url
     return url
 }
 
-function post(url, id) {
+function post(url, id, texto) {
     return $.ajax({
                 headers     : { "X-CSRFToken": csrftoken },
                 type        : 'POST', 
                 url         : url,
-                data        : { 'id': id },
+                data        : { 'id': id, 'texto' : texto },
                 dataType    : 'json'
             });
 }
@@ -38,6 +49,11 @@ function feedback(id, results) {
         $('#is_correta_'   + id).hide();
         $('#is_incorreta_' + id).show();
     }
+}
+
+function editar(id) {
+    $('#comentario_editar_'   + id).toggle();
+    $('#comentario_publicar_' + id).toggle();
 }
 
 function getCookie(name) {

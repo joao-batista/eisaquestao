@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import PerguntaForm, AlternativaForm, FiltroForm
-from .models import Pergunta, Alternativa, Respondida
+from .models import Pergunta, Alternativa, Respondida, Comentario
 from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib.auth.decorators import permission_required
@@ -69,6 +69,20 @@ def responder_ajax(request):
     except Respondida.DoesNotExist:
         Respondida.objects.create(pergunta = pergunta, perfil = perfil, alternativa = alternativa)
     return JsonResponse({'resposta' : alternativa.correta})
+
+def publicar_ajax(request):
+    id = request.POST.get('id')
+    texto = request.POST.get('texto')
+    pergunta = Pergunta.objects.get(pk = id)
+    perfil = request.user.perfil
+
+    try:
+        comentario = Comentario.objects.get(pergunta = pergunta, perfil = perfil)
+        comentario.texto = texto
+        comentario.save()
+    except Comentario.DoesNotExist:
+        Comentario.objects.create(pergunta = pergunta, perfil = perfil, texto = texto)
+    return JsonResponse({'resposta' : texto})
 
 def render_index(request, perguntas):
     return render(request, 'index.html', { 'perguntas' : perguntas, 'filtro_form' : FiltroForm() })
