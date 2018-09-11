@@ -2,6 +2,10 @@
     min-width: 100px;
 }
 
+.label-form-login {
+    min-width: 20px;
+}
+
 .sem_borda td, .sem_borda th {
     border: none
 }
@@ -28,4 +32,18 @@
 
 .hide {
     display: none;
+}
+
+.label-alternativa {
+    cursor: pointer;
+}
+
+.textarea-customizado {
+    min-height: 20px;
+    overflow: hidden;
+    border-radius: 0;
+    border: none;
+    resize: unset;
+    background-color: #f9f9f9 !important;
+    box-shadow: none !important;
 }

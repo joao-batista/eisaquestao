@@ -12,8 +12,8 @@
 
 <body>
 
-    <nav class="navbar navbar-dark bg-warning">
-        <a class="navbar-brand" href="">
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <a class="navbar-brand" href="{% url 'index' %}">
             <i class="fa fa-check"></i> Eis a Questão
         </a>
         {% if perms.questoes.add_pergunta %}

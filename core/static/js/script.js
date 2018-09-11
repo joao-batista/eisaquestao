@@ -72,3 +72,10 @@ function getCookie(name) {
     return cookieValue;
 }
 var csrftoken = getCookie('csrftoken');
+
+$(document).ready(function() {
+    $(".textarea-customizado").each(function(){
+        $(this).css('height','auto');
+        $(this).height(this.scrollHeight);
+    });
+});
