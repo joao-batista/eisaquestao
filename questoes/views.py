@@ -41,12 +41,12 @@ def pergunta_atualizar(request, id):
 def filtrar(request):
 
     if not request.method == 'POST':
-        if 'search-persons-post' in request.session:
-            request.POST = request.session['search-persons-post']
+        if 'search-post' in request.session:
+            request.POST = request.session['search-post']
             request.method = 'POST'
 
     if request.method == 'POST':
-        request.session['search-persons-post'] = request.POST
+        request.session['search-post'] = request.POST
         form = FiltroForm(request.POST)
 
     if form.is_valid():
