@@ -55,19 +55,14 @@ def filtrar(request):
         
         if data.get('disciplina'):
             query.add(Q(disciplina = data.get('disciplina')), Q.AND)
-            request.session['disciplina'] = str(data.get('disciplina'))
         if data.get('banca'):
             query.add(Q(banca = data.get('banca')), Q.AND)
-            request.session['banca'] = str(data.get('banca'))
         if data.get('ano'):
             query.add(Q(ano = data.get('ano')), Q.AND)
-            request.session['ano'] = str(data.get('ano'))
         if data.get('nivel'):
             query.add(Q(nivel = data.get('nivel')), Q.AND)
-            request.session['nivel'] = str(data.get('nivel'))
         if data.get('orgao'):
             query.add(Q(orgao = data.get('orgao')), Q.AND)
-            request.session['orgao'] = str(data.get('orgao'))
 
         perguntas = Pergunta.objects.filter(query).all()
     return render_index(request, perguntas)
